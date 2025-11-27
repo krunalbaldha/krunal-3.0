@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Github, Linkedin, ExternalLink, Instagram, Facebook } from "lucide-react";
+import {
+  Github,
+  Linkedin,
+  ExternalLink,
+  Instagram,
+  Facebook,
+} from "lucide-react";
 
 // ==============================
 // 3D LIQUID GLASS PORTFOLIO – VERCEL API SUBMISSION LOGIC
@@ -18,12 +24,54 @@ const skills = [
 ];
 
 const projects = [
-  { name: "Vepaar", tag: "Commerce Suite", desc: "No‑code store & CRM for small businesses.", logoSrc: "/images/logos/vepaar.png", liveLink: "https://vepaar.com/", type: "Product" },
-  { name: "Livvy", tag: "Ticketing Platform", desc: "Event tickets and passes with live analytics.", logoSrc: "/images/logos/livvy.png", liveLink: "https://www.livvy.social/", type: "Project" }, 
-  { name: "Pagemaker", tag: "No‑code Builder", desc: "Visual website builder for creators.", logoSrc: "/images/logos/pagemaker.png", liveLink: "https://pagemaker.io/", type: "Product" },
-  { name: "DateDish", tag: "Social Dining", desc: "Curated date‑night food experiences.", logoSrc: "/images/logos/datedish.png", liveLink: "#", type: "Project" }, 
-  { name: "Voliz", tag: "Polls & Surveys", desc: "One‑tap WhatsApp polls for fast feedback.", logoSrc: "/images/logos/voliz.png", liveLink: "https://voliz.com/", type: "Product" },
-  { name: "Dimboo", tag: "Marketing SaaS", desc: "Social media campaign automation.", logoSrc: "/images/logos/dimboo.png", liveLink: "https://dimboo.io/en", type: "Project" }, 
+  {
+    name: "Vepaar",
+    tag: "Commerce Suite",
+    desc: "No‑code store & CRM for small businesses.",
+    logoSrc: "/images/logos/vepaar.png",
+    liveLink: "https://vepaar.com/",
+    type: "Product",
+  },
+  {
+    name: "Livvy",
+    tag: "Ticketing Platform",
+    desc: "Event tickets and passes with live analytics.",
+    logoSrc: "/images/logos/livvy.png",
+    liveLink: "https://www.livvy.social/",
+    type: "Project",
+  },
+  {
+    name: "Pagemaker",
+    tag: "No‑code Builder",
+    desc: "Visual website builder for creators.",
+    logoSrc: "/images/logos/pagemaker.png",
+    liveLink: "https://pagemaker.io/",
+    type: "Product",
+  },
+  {
+    name: "DateDish",
+    tag: "Social Dining",
+    desc: "Curated date‑night food experiences.",
+    logoSrc: "/images/logos/datedish.png",
+    liveLink: "#",
+    type: "Project",
+  },
+  {
+    name: "Voliz",
+    tag: "Polls & Surveys",
+    desc: "One‑tap WhatsApp polls for fast feedback.",
+    logoSrc: "/images/logos/voliz.png",
+    liveLink: "https://voliz.com/",
+    type: "Product",
+  },
+  {
+    name: "Dimboo",
+    tag: "Marketing SaaS",
+    desc: "Social media campaign automation.",
+    logoSrc: "/images/logos/dimboo.png",
+    liveLink: "https://dimboo.io/en",
+    type: "Project",
+  },
 ];
 
 const glass =
@@ -33,8 +81,8 @@ const glass =
 function useSystemTheme() {
   useEffect(() => {
     if (typeof window === "undefined") return;
-    localStorage.removeItem('theme'); 
-    
+    localStorage.removeItem("theme");
+
     const mq = window.matchMedia("(prefers-color-scheme: dark)");
 
     const updateTheme = () => {
@@ -56,7 +104,7 @@ function TypingTitle({ roles }: { roles: string[] }) {
     let index = 0;
     const current = roles[roleIndex];
     let typingInterval: NodeJS.Timeout;
-    let pauseTimeout: NodeJS.Timeout | undefined; 
+    let pauseTimeout: NodeJS.Timeout | undefined;
 
     const startTyping = () => {
       typingInterval = setInterval(() => {
@@ -65,7 +113,7 @@ function TypingTitle({ roles }: { roles: string[] }) {
           index++;
         } else {
           clearInterval(typingInterval);
-          
+
           pauseTimeout = setTimeout(() => {
             setDisplayed("");
             setRoleIndex((prev) => (prev + 1) % roles.length);
@@ -77,12 +125,11 @@ function TypingTitle({ roles }: { roles: string[] }) {
     startTyping();
 
     return () => {
-        clearInterval(typingInterval);
-        if (pauseTimeout) {
-            clearTimeout(pauseTimeout);
-        }
+      clearInterval(typingInterval);
+      if (pauseTimeout) {
+        clearTimeout(pauseTimeout);
+      }
     };
-
   }, [roleIndex, roles]);
 
   return (
@@ -100,40 +147,42 @@ export function parseSkill(item: string) {
 
 // New Motion Component for Social Icons
 interface MotionSocialLinkProps {
-    href: string;
-    Icon: React.ElementType;
+  href: string;
+  Icon: React.ElementType;
 }
 
 const MotionSocialLink: React.FC<MotionSocialLinkProps> = ({ href, Icon }) => (
-    <motion.a
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer" 
-        whileHover={{ y: -4, scale: 1.1 }}
-        transition={{ type: "spring", stiffness: 300 }}
-        className="inline-flex items-center gap-1 rounded-full bg-white/70 px-3 py-1 text-slate-700 hover:bg-white dark:bg-slate-800/80 dark:hover:bg-slate-800 dark:text-white"
-    >
-        <Icon className="h-3.5 w-3.5" /> 
-    </motion.a>
+  <motion.a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    whileHover={{ y: -4, scale: 1.1 }}
+    transition={{ type: "spring", stiffness: 300 }}
+    className="inline-flex items-center gap-1 rounded-full bg-white/70 px-3 py-1 text-slate-700 hover:bg-white dark:bg-slate-800/80 dark:hover:bg-slate-800 dark:text-white"
+  >
+    <Icon className="h-3.5 w-3.5" />
+  </motion.a>
 );
-
 
 export default function Portfolio() {
   const [activeSection, setActiveSection] = useState<string>("hero");
-  
-  // State for form inputs
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
-  
-  // State for toast notification
-  const [toastMessage, setToastMessage] = useState<{ content: string; type: 'success' | 'error' | '' }>({ content: '', type: '' });
 
-  useSystemTheme(); 
+  // State for form inputs
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+
+  // State for toast notification
+  const [toastMessage, setToastMessage] = useState<{
+    content: string;
+    type: "success" | "error" | "";
+  }>({ content: "", type: "" });
+
+  useSystemTheme();
 
   const scrollToSection = (
     e: React.MouseEvent<HTMLAnchorElement>,
-    id: string,
+    id: string
   ) => {
     e.preventDefault();
     const el = document.getElementById(id);
@@ -151,55 +200,65 @@ export default function Portfolio() {
 
     // 1. Client-Side Validation
     if (!name.trim()) {
-        setToastMessage({ content: "Please enter your name.", type: 'error' });
-        setTimeout(() => setToastMessage({ content: '', type: '' }), 3000);
-        return;
+      setToastMessage({ content: "Please enter your name.", type: "error" });
+      setTimeout(() => setToastMessage({ content: "", type: "" }), 3000);
+      return;
     }
     if (!email.trim() || !/\S+@\S+\.\S+/.test(email)) {
-        setToastMessage({ content: "Please enter a valid email address.", type: 'error' });
-        setTimeout(() => setToastMessage({ content: '', type: '' }), 3000);
-        return;
+      setToastMessage({
+        content: "Please enter a valid email address.",
+        type: "error",
+      });
+      setTimeout(() => setToastMessage({ content: "", type: "" }), 3000);
+      return;
     }
     if (!message.trim()) {
-        setToastMessage({ content: "Please enter a message.", type: 'error' });
-        setTimeout(() => setToastMessage({ content: '', type: '' }), 3000);
-        return;
+      setToastMessage({ content: "Please enter a message.", type: "error" });
+      setTimeout(() => setToastMessage({ content: "", type: "" }), 3000);
+      return;
     }
-
 
     // 2. Form Submission to VERCEL API Route
     // 🛑 IMPORTANT: This path MUST match your serverless function file location (e.g., pages/api/contact.js)
-    const endpoint = '/api/contact'; 
+    const endpoint = "/api/contact";
 
     try {
       const response = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, message }),
       });
-      
-      const isSuccess = response.ok; 
+
+      const isSuccess = response.ok;
 
       if (isSuccess) {
-        setToastMessage({ content: "Message sent! I'll get back to you soon.", type: 'success' });
+        setToastMessage({
+          content: "Message sent! I'll get back to you soon.",
+          type: "success",
+        });
         // Clear form fields
-        setName('');
-        setEmail('');
-        setMessage('');
+        setName("");
+        setEmail("");
+        setMessage("");
       } else {
         // If API returns a non-200 status
-        setToastMessage({ content: "Failed to send message. Server error.", type: 'error' });
+        setToastMessage({
+          content: "Failed to send message. Server error.",
+          type: "error",
+        });
       }
-
     } catch (error) {
       // If the fetch fails entirely (e.g., network error)
-      console.error('Submission error:', error);
-      setToastMessage({ content: "An network error occurred during submission.", type: 'error' });
+      console.error("Submission error:", error);
+      setToastMessage({
+        content: "An network error occurred during submission.",
+        type: "error",
+      });
     }
 
     // Hide toast after 3 seconds
     setTimeout(() => {
-      setToastMessage({ content: '', type: '' });
+      setToastMessage({ content: "", type: "" });
     }, 3000);
   };
   // End of handleSubmit
@@ -222,9 +281,9 @@ export default function Portfolio() {
         });
       },
       {
-        rootMargin: "-20% 0px -50% 0px", 
-        threshold: 0.01, 
-      },
+        rootMargin: "-20% 0px -50% 0px",
+        threshold: 0.01,
+      }
     );
 
     sectionElements.forEach((el) => {
@@ -236,21 +295,22 @@ export default function Portfolio() {
 
   return (
     <div className="relative min-h-screen bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100">
-      
       {/* TOAST NOTIFICATION COMPONENT */}
       {toastMessage.content && (
-        <motion.div 
-            initial={{ y: -50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: -50, opacity: 0 }}
-            className={`fixed top-4 left-1/2 -translate-x-1/2 z-[100] px-4 py-3 rounded-lg shadow-2xl text-sm font-medium ${
-                toastMessage.type === 'success' ? 'bg-emerald-500 text-white' : 'bg-red-500 text-white'
-            }`}
+        <motion.div
+          initial={{ y: -50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: -50, opacity: 0 }}
+          className={`fixed top-4 left-1/2 -translate-x-1/2 z-[100] px-4 py-3 rounded-lg shadow-2xl text-sm font-medium ${
+            toastMessage.type === "success"
+              ? "bg-emerald-500 text-white"
+              : "bg-red-500 text-white"
+          }`}
         >
-            {toastMessage.content}
+          {toastMessage.content}
         </motion.div>
       )}
-      
+
       {/* COLORFUL LIQUID BACKGROUND - STATIC (Optimized) */}
       <div className="pointer-events-none fixed inset-0 -z-20">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(96,165,250,0.22),_transparent_55%),radial-gradient(circle_at_bottom,_rgba(244,114,182,0.3),_transparent_55%)] dark:bg-[radial-gradient(circle_at_top,_rgba(96,165,250,0.1),_transparent_55%),radial-gradient(circle_at_bottom,_rgba(244,114,182,0.15),_transparent_55%)]" />
@@ -270,7 +330,9 @@ export default function Portfolio() {
             <div className="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-cyan-400 via-sky-500 to-indigo-500 text-[11px] font-bold text-white shadow-lg">
               KB
             </div>
-            <span className="text-sm font-semibold text-slate-800 dark:text-slate-100">Krunal Baldha</span>
+            <span className="text-sm font-semibold text-slate-800 dark:text-slate-100">
+              Krunal Baldha
+            </span>
           </a>
 
           <div className="flex items-center gap-4">
@@ -312,23 +374,22 @@ export default function Portfolio() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="space-y-6"
           >
-            <p className="text-xs tracking-widest text-slate-500 dark:text-slate-400">I'M</p>
+            <p className="text-xs tracking-widest text-slate-500 dark:text-slate-400">
+              I'M
+            </p>
 
             <h1 className="text-5xl font-extrabold text-slate-900 sm:text-6xl md:text-7xl dark:text-white">
               Krunal Baldha
             </h1>
 
             <TypingTitle
-              roles={[
-                "Product Manager",
-                "Quality Engineer",
-                "Problem Solver",
-              ]}
+              roles={["Product Manager", "Quality Engineer", "Problem Solver"]}
             />
 
             <p className="max-w-xl text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-              I create impactful digital products that solve real problems and drive measurable results. I
-              build user‑focused digital products through strategy, research, and quality engineering.
+              I create impactful digital products that solve real problems and
+              drive measurable results. I build user‑focused digital products
+              through strategy, research, and quality engineering.
             </p>
 
             <div className="flex gap-4 pt-2">
@@ -372,8 +433,8 @@ export default function Portfolio() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="relative flex justify-center"
-            whileHover={{ scale: 1.05, rotate: 2 }} 
-            transition={{ duration: 0.3 }} 
+            whileHover={{ scale: 1.05, rotate: 2 }}
+            transition={{ duration: 0.3 }}
           >
             <div className="relative pl-6">
               <div className="absolute -inset-4 rounded-full bg-gradient-to-tr from-teal-400 to-cyan-300 blur-2xl opacity-50" />
@@ -382,7 +443,7 @@ export default function Portfolio() {
                   src="/images/krunal.png"
                   alt="Krunal Baldha"
                   className="h-full w-full object-cover"
-                  loading="lazy" 
+                  loading="lazy"
                 />
               </div>
             </div>
@@ -400,43 +461,55 @@ export default function Portfolio() {
                 KB
               </div>
               <div>
-                <h3 className="font-semibold text-slate-900 dark:text-white">Krunal Baldha</h3>
+                <h3 className="font-semibold text-slate-900 dark:text-white">
+                  Krunal Baldha
+                </h3>
                 <p className="text-sm text-teal-500">Product Manager</p>
               </div>
             </div>
 
             <p className="mt-4 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-              I transform ideas into meaningful, user‑centered solutions, focused on delivering clarity,
-              alignment, and impact across teams.
+              I transform ideas into meaningful, user‑centered solutions,
+              focused on delivering clarity, alignment, and impact across teams.
             </p>
 
             <div className="mt-4 text-sm">
               <p className="text-xs text-slate-400">Email</p>
-              <p className="font-medium text-slate-800 dark:text-slate-100">krunalbaldha1@gmail.com</p>
+              <p className="font-medium text-slate-800 dark:text-slate-100">
+                krunalbaldha1@gmail.com
+              </p>
             </div>
 
             <div className="mt-3 text-sm">
               <p className="text-xs text-slate-400">Location</p>
-              <p className="font-medium text-slate-800 dark:text-slate-100">Ahmedabad, India</p>
+              <p className="font-medium text-slate-800 dark:text-slate-100">
+                Ahmedabad, India
+              </p>
             </div>
           </div>
 
           <div className={`${glass} p-6`}>
-            <h2 className="mb-3 text-xl font-semibold text-slate-900 dark:text-white">About Me</h2>
+            <h2 className="mb-3 text-xl font-semibold text-slate-900 dark:text-white">
+              About Me
+            </h2>
 
             <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-              I’m a Product Manager with a strong technical background, passionate about building products
-              that are intuitive, scalable, and genuinely helpful.
+              I’m a Product Manager with a strong technical background,
+              passionate about building products that are intuitive, scalable,
+              and genuinely helpful.
             </p>
 
             <p className="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-              Over the last few years, I’ve worked on SaaS products, automation systems, and internal tools,
-              always with the goal of improving user experience and product quality.
+              Over the last few years, I’ve worked on SaaS products, automation
+              systems, and internal tools, always with the goal of improving
+              user experience and product quality.
             </p>
 
             <div className="mt-5 grid gap-6 md:grid-cols-2">
               <div>
-                <h4 className="mb-2 font-semibold text-slate-900 dark:text-white">Tools & Tech</h4>
+                <h4 className="mb-2 font-semibold text-slate-900 dark:text-white">
+                  Tools & Tech
+                </h4>
                 <div className="flex flex-wrap gap-2 text-sm">
                   {[
                     "Product & Design Tools",
@@ -458,7 +531,9 @@ export default function Portfolio() {
               </div>
 
               <div>
-                <h4 className="mb-2 font-semibold text-slate-900 dark:text-white">Highlights</h4>
+                <h4 className="mb-2 font-semibold text-slate-900 dark:text-white">
+                  Highlights
+                </h4>
                 <ul className="list-disc list-inside space-y-2 text-sm text-slate-600 dark:text-slate-300">
                   <li>Delivered features across multiple SaaS releases</li>
                   <li>Built QA automation to reduce regressions</li>
@@ -472,7 +547,9 @@ export default function Portfolio() {
         </section>
 
         {/* EXPERIENCE + SKILLS + SERVICES */}
-        <div className="text-2xl font-bold text-slate-900 dark:text-white">Experience</div>
+        <div className="text-2xl font-bold text-slate-900 dark:text-white">
+          Experience
+        </div>
         <section
           id="experience"
           className="grid gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]"
@@ -481,8 +558,12 @@ export default function Portfolio() {
           <div className="space-y-10 border-l border-slate-200 pl-6 dark:border-slate-700">
             <div className="relative pl-6">
               <span className="absolute left-0 top-[6px] h-3 w-3 rounded-full bg-teal-500" />
-              <p className="text-xs text-slate-500 dark:text-slate-400">Jan 2024 – Present</p>
-              <h3 className="text-sm font-semibold text-slate-900 dark:text-white">Associate Product Manager</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400">
+                Jan 2024 – Present
+              </p>
+              <h3 className="text-sm font-semibold text-slate-900 dark:text-white">
+                Associate Product Manager
+              </h3>
               <p className="text-sm text-teal-600 dark:text-teal-400">7Span</p>
               <ul className="mt-2 space-y-1 list-disc list-inside text-sm text-slate-600 dark:text-slate-300">
                 <li>Owned roadmap for core features</li>
@@ -496,11 +577,15 @@ export default function Portfolio() {
 
             <div className="relative pl-6">
               <span className="absolute left-0 top-[6px] h-3 w-3 rounded-full bg-teal-500" />
-              <p className="text-xs text-slate-500 dark:text-slate-400">Jan 2023 – Oct 2023</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">
+                Jan 2023 – Oct 2023
+              </p>
               <h3 className="text-sm font-semibold text-slate-900 dark:text-white">
                 Placement & Training Coordinator – Volunteer
               </h3>
-              <p className="text-sm text-teal-600 dark:text-teal-400">LJ University</p>
+              <p className="text-sm text-teal-600 dark:text-teal-400">
+                LJ University
+              </p>
               <ul className="mt-2 space-y-1 list-disc list-inside text-sm text-slate-600 dark:text-slate-300">
                 <li>Led end‑to‑end placement drives</li>
                 <li>Liaison between students & recruiters</li>
@@ -512,9 +597,15 @@ export default function Portfolio() {
 
             <div className="relative pl-6">
               <span className="absolute left-0 top-[6px] h-3 w-3 rounded-full bg-teal-500" />
-              <p className="text-xs text-slate-500 dark:text-slate-400">Jan 2021 – Jun 2022</p>
-              <h3 className="text-sm font-semibold text-slate-900 dark:text-white">Software Engineer (Python Developer)</h3>
-              <p className="text-sm text-teal-600 dark:text-teal-400">Identiq InfoTech</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">
+                Jan 2021 – Jun 2022
+              </p>
+              <h3 className="text-sm font-semibold text-slate-900 dark:text-white">
+                Software Engineer (Python Developer)
+              </h3>
+              <p className="text-sm text-teal-600 dark:text-teal-400">
+                Identiq InfoTech
+              </p>
               <ul className="mt-2 space-y-1 list-disc list-inside text-sm text-slate-600 dark:text-slate-300">
                 <li>Hands‑on with Python & REST APIs</li>
                 <li>Built scalable applications</li>
@@ -527,7 +618,9 @@ export default function Portfolio() {
 
           <div className="space-y-8">
             <div id="skills" className={`${glass} p-6`}>
-              <h2 className="mb-4 text-xl font-semibold text-slate-900 dark:text-white">Skills</h2>
+              <h2 className="mb-4 text-xl font-semibold text-slate-900 dark:text-white">
+                Skills
+              </h2>
               <div className="grid gap-4 md:grid-cols-2 text-sm text-slate-700 dark:text-slate-300">
                 {skills.map((item) => {
                   const { label, value } = parseSkill(item);
@@ -553,7 +646,9 @@ export default function Portfolio() {
             </div>
 
             <div id="services" className={`${glass} p-6`}>
-              <h2 className="mb-4 text-xl font-semibold text-slate-900 dark:text-white">Services</h2>
+              <h2 className="mb-4 text-xl font-semibold text-slate-900 dark:text-white">
+                Services
+              </h2>
               <div className="grid gap-4 md:grid-cols-3 text-sm">
                 {[
                   "Product Management|Roadmaps, metrics, prioritization",
@@ -565,9 +660,16 @@ export default function Portfolio() {
                 ].map((service) => {
                   const [title, desc] = service.split("|");
                   return (
-                    <div key={title} className="rounded-xl border border-slate-200 p-4 shadow-sm dark:border-slate-700 dark:bg-slate-800/60">
-                      <h3 className="mb-1 font-semibold text-slate-900 dark:text-white">{title}</h3>
-                      <p className="text-xs text-slate-600 dark:text-slate-400">{desc}</p>
+                    <div
+                      key={title}
+                      className="rounded-xl border border-slate-200 p-4 shadow-sm dark:border-slate-700 dark:bg-slate-800/60"
+                    >
+                      <h3 className="mb-1 font-semibold text-slate-900 dark:text-white">
+                        {title}
+                      </h3>
+                      <p className="text-xs text-slate-600 dark:text-slate-400">
+                        {desc}
+                      </p>
                     </div>
                   );
                 })}
@@ -580,7 +682,9 @@ export default function Portfolio() {
         <section id="projects" className="space-y-4">
           <div className="flex items-end justify-between gap-4">
             <div>
-              <h2 className="text-sm font-semibold text-slate-900 dark:text-white">Selected Work</h2>
+              <h2 className="text-sm font-semibold text-slate-900 dark:text-white">
+                Selected Work
+              </h2>
               <p className="mt-1 text-[11px] text-slate-500 dark:text-slate-400">
                 A mix of shipped products, experiments, and side projects.
               </p>
@@ -595,7 +699,11 @@ export default function Portfolio() {
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.25 }}
-                transition={{ delay: index * 0.07, duration: 0.6, ease: "easeOut" }}
+                transition={{
+                  delay: index * 0.07,
+                  duration: 0.6,
+                  ease: "easeOut",
+                }}
                 style={{ transformStyle: "preserve-3d" }}
                 whileHover={{ y: -14, rotateX: 4, rotateY: -4 }}
               >
@@ -604,12 +712,12 @@ export default function Portfolio() {
                   {/* Background Gradients */}
                   <div className="absolute inset-0 bg-[radial-gradient(circle_at_0%_0%,rgba(56,189,248,0.6),transparent_55%),radial-gradient(circle_at_100%_0%,rgba(244,114,182,0.6),transparent_55%),radial-gradient(circle_at_50%_100%,rgba(74,222,128,0.55),transparent_55%)] opacity-80 transition-transform duration-500 group-hover:scale-110" />
                   <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(15,23,42,0.2),transparent,rgba(15,23,42,0.35))]" />
-                  
+
                   {/* Project Logo */}
-                  <img 
-                    src={project.logoSrc} 
-                    alt={`${project.name} logo`} 
-                    className="h-80 w-96 object-contain z-10" 
+                  <img
+                    src={project.logoSrc}
+                    alt={`${project.name} logo`}
+                    className="h-80 w-96 object-contain z-10"
                     loading="lazy"
                   />
                 </div>
@@ -618,8 +726,12 @@ export default function Portfolio() {
                   <p className="text-[11px] uppercase tracking-wide text-slate-400">
                     {project.tag}
                   </p>
-                  <h3 className="text-sm font-semibold text-slate-900 dark:text-white">{project.name}</h3>
-                  <p className="text-[11px] text-slate-600 dark:text-slate-300">{project.desc}</p>
+                  <h3 className="text-sm font-semibold text-slate-900 dark:text-white">
+                    {project.name}
+                  </h3>
+                  <p className="text-[11px] text-slate-600 dark:text-slate-300">
+                    {project.desc}
+                  </p>
                 </div>
 
                 <div className="mt-3 flex items-center justify-between text-[11px] text-cyan-600">
@@ -627,7 +739,7 @@ export default function Portfolio() {
                     View case study
                     <ExternalLink className="h-3 w-3" />
                   </span>
-                  
+
                   <a
                     href={project.liveLink}
                     target="_blank"
@@ -656,31 +768,48 @@ export default function Portfolio() {
             style={{ transformStyle: "preserve-3d" }}
             whileHover={{ y: -8, rotateX: 3, rotateY: -3 }}
           >
-            <h2 className="text-sm font-semibold text-slate-900 dark:text-white">Let’s build something vivid</h2>
+            <h2 className="text-sm font-semibold text-slate-900 dark:text-white">
+              Let’s build something vivid
+            </h2>
             <p className="mt-2 text-xs text-slate-600 dark:text-slate-300">
-              I’m open to freelance, consulting, and full‑time roles. Share a little about the product or
-              team, and I’ll reply with ideas and next steps.
+              I’m open to freelance, consulting, and full‑time roles. Share a
+              little about the product or team, and I’ll reply with ideas and
+              next steps.
             </p>
 
             <div className="mt-4 space-y-1 text-[15px] text-slate-700 dark:text-slate-300">
               <p>
-                Email: <span className="font-semibold text-slate-900 dark:text-white">krunalbaldha1@gmail.com</span>
+                Email:{" "}
+                <span className="font-semibold text-slate-900 dark:text-white">
+                  krunalbaldha1@gmail.com
+                </span>
               </p>
               <p>Location: Ahmedabad, India (IST)</p>
             </div>
 
             {/* Using the new MotionSocialLink component */}
             <div className="mt-4 flex gap-3 text-xs text-slate-700">
-              <MotionSocialLink href="https://github.com/krunalbaldha" Icon={Github} />
-              <MotionSocialLink href="https://www.linkedin.com/in/krunalbaldha" Icon={Linkedin} />
-              <MotionSocialLink href="https://www.instagram.com/krunal.baldha?igsh=MWpxb2tqeWY2Z2hiMg==" Icon={Instagram} />
-              <MotionSocialLink href="https://www.facebook.com/share/1G2Mi92Mhw/" Icon={Facebook} />
+              <MotionSocialLink
+                href="https://github.com/krunalbaldha"
+                Icon={Github}
+              />
+              <MotionSocialLink
+                href="https://www.linkedin.com/in/krunalbaldha"
+                Icon={Linkedin}
+              />
+              <MotionSocialLink
+                href="https://www.instagram.com/krunal.baldha?igsh=MWpxb2tqeWY2Z2hiMg=="
+                Icon={Instagram}
+              />
+              <MotionSocialLink
+                href="https://www.facebook.com/share/1G2Mi92Mhw/"
+                Icon={Facebook}
+              />
             </div>
-            
           </motion.div>
 
           <motion.form
-            onSubmit={handleSubmit} 
+            onSubmit={handleSubmit}
             className={`${glass} space-y-3 p-6 sm:p-7`}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -691,38 +820,55 @@ export default function Portfolio() {
           >
             <div className="grid gap-3 sm:grid-cols-2">
               <div className="space-y-1 text-[11px]">
-                <label htmlFor="name" className="text-slate-600 dark:text-slate-400">Your name</label>
+                <label
+                  htmlFor="name"
+                  className="text-slate-600 dark:text-slate-400"
+                >
+                  Your name
+                </label>
                 <input
                   id="name"
-                  value={name} 
-                  onChange={(e) => setName(e.target.value)} 
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                   className="w-full rounded-2xl border border-white/60 bg-white/80 px-3 py-2 text-xs text-slate-900 outline-none placeholder:text-slate-400 focus:border-cyan-400 dark:border-slate-700/60 dark:bg-slate-900/80 dark:text-white"
                   placeholder="Jane Doe"
                 />
               </div>
               <div className="space-y-1 text-[11px]">
-                <label htmlFor="email" className="text-slate-600 dark:text-slate-400">Your email</label>
+                <label
+                  htmlFor="email"
+                  className="text-slate-600 dark:text-slate-400"
+                >
+                  Your email
+                </label>
                 <input
                   id="email"
                   type="email"
-                  value={email} 
-                  onChange={(e) => setEmail(e.target.value)} 
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="w-full rounded-2xl border border-white/60 bg-white/80 px-3 py-2 text-xs text-slate-900 outline-none placeholder:text-slate-400 focus:border-cyan-400 dark:border-slate-700/60 dark:bg-slate-900/80 dark:text-white"
                   placeholder="you@example.com"
                 />
               </div>
             </div>
             <div className="space-y-1 text-[11px]">
-              <label htmlFor="message" className="text-slate-600 dark:text-slate-400">Message</label>
+              <label
+                htmlFor="message"
+                className="text-slate-600 dark:text-slate-400"
+              >
+                Message
+              </label>
               <textarea
                 id="message"
                 rows={4}
-                value={message} 
-                onChange={(e) => setMessage(e.target.value)} 
-                className="w-full resize-none rounded-2xl border border-white/60 bg-white/80 px-3 py-2 text-xs text-slate-900 outline-none placeholder:text-slate-400 focus:border-cyan-400 dark:border-slate-700/60 dark:bg-slate-900/80 dark:text-white"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                // 🟢 UPDATED CLASSES: Added h-32 for fixed height and scrollbar-hide
+                className="w-full resize-none rounded-2xl border border-white/60 bg-white/80 px-3 py-2 text-xs text-slate-900 outline-none placeholder:text-slate-400 focus:border-cyan-400 dark:border-slate-700/60 dark:bg-slate-900/80 dark:text-white scrollbar-hide h-32"
                 placeholder="Tell me about your product, idea, or role."
               />
             </div>
+            
             <button
               type="submit"
               className="mt-2 inline-flex w-full items-center justify-center rounded-full bg-gradient-to-r from-sky-400 via-fuchsia-400 to-emerald-400 px-5 py-2 text-xs font-semibold text-slate-950 shadow-[0_18px_45px_rgba(236,72,153,0.65)] transition hover:translate-y-0.5 hover:brightness-110 dark:text-slate-900 dark:shadow-[0_18px_45px_rgba(236,72,153,0.3)]"
